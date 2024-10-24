@@ -1,5 +1,4 @@
 /*-------------------------------- Constants --------------------------------*/
-const buttons = document.querySelectorAll('.button number');
 const calculator = document.querySelector('#calculator');
 const display = document.querySelector('.display');
 /*-------------------------------- Variables --------------------------------*/
@@ -13,12 +12,15 @@ calculator.addEventListener('click', (event) => {
     // You have to click a button to see this log
     console.log(event.target.innerText);
   
-    // Example
+    // Process numbers
     if (event.target.classList.contains('number')) {
+        // Check which number is being created
         if (operator === null) {
+            // If creating initial number
             if (num1 === null) {
                 num1 = parseInt(event.target.innerText);
             }
+            // If adding digit to number, shift initial number and add new one
             else {
                 num1 = num1*10 + parseInt(event.target.innerText);
             }
@@ -34,6 +36,7 @@ calculator.addEventListener('click', (event) => {
             display.innerText = num2;
         }
     }
+    // Process operators
     else if (event.target.innerText === '+') {
         operator = '+';
         display.innerText = operator;
@@ -50,17 +53,21 @@ calculator.addEventListener('click', (event) => {
         operator = '/';
         display.innerText = operator;
     }
+    // Clear resets variables
     else if (event.target.innerText === 'C') {
         operator = null;
         num1 = null;
         num2 = null;
         display.innerText = 0;
     }
+    // Process final eval
     else if (event.target.innerText === '=') {
+        // Checks if missing variable
         if(num1 === null || num2 === null || operator === null) {
             display.innerText = "Missing variable."
         }
         else {
+            // Learned about eval function from classmate
             display.innerText = eval(num1+operator+num2);
             operator = null;
             num1 = null;
